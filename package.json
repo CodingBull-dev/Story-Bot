@@ -1,0 +1,19 @@
+{
+  "name": "story.bot",
+  "version": "1.0.0",
+  "description": "Stories told by AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve --quiet",
+    "build": "NODE_ENV=production eleventy",
+    "write": "node scripts/generate-story.js"
+  },
+  "author": "Javier Bullrich <javier@bullrich.dev>",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "html-minifier": "^4.0.0",
+    "moment": "^2.29.4",
+    "openai": "^3.2.1"
+  }
+}
