@@ -38,6 +38,8 @@ const getDate = () => {
 async function generateStory() {
     const story = {};
 
+    console.log("Requesting story")
+
     const storyMessages = [
         { "role": "system", "content": "You write short stories for a blog." },
         { "role": "user", "content": fullPrompt }
@@ -50,6 +52,10 @@ async function generateStory() {
     story.prompt = prompt;
     story.content = response.data.choices[0].message.content;
 
+    console.log("Got the story", story.prompt);
+
+    console.log("Requesting story title");
+
     const titleQuestion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
@@ -61,7 +67,9 @@ async function generateStory() {
 
     story.title = titleQuestion.data.choices[0].message.content;
 
-    console.log(story);
+    console.log("Got the story title:", story.title);
+
+    console.log("Generating markdown file");
 
     const promptData = "```markdown" + prompt + "\n```";
 
@@ -79,9 +87,7 @@ ${story.content}
 ${promptData}
 `;
 
-const fileName = `./src/blog/${today}-${string.sanitize.addDash(story.title)}.md`.toLowerCase();
-
-    console.log(markdown);
+    const fileName = `./src/blog/${today}-${string.sanitize.addDash(story.title)}.md`.toLowerCase();
     fs.writeFile(fileName, markdown, err => {
         if (err) {
             console.error(err);
