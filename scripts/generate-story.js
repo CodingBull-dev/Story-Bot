@@ -1,5 +1,6 @@
 const { Configuration, OpenAIApi } = require("openai");
 const fs = require('fs');
+var string = require("string-sanitizer");
 
 const key = process.env.OPEN_AI_KEY;
 if (!key) {
@@ -13,31 +14,37 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const prompt = `
-Write a story. Has to be at least 5 paragraphs long.
-
 The story must be one of the following genres (or a combination of them): Fantasy, Fiction, Horror, or Humor.
 
 Extra points if the story ends with an unexpected twist.
+`;
+
+const fullPrompt = `
+Write a story. Has to be at least 5 paragraphs long.
+
+${prompt}
 
 Don't write the title of the story. I'll ask you about it in a follow up question`;
 
-const today = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+const getDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
 
-    return dd + '/' + mm + '/' + yyyy;
+    return `${yyyy}-${mm}-${dd}`;
 }
 
 async function generateStory() {
     const story = {};
+
+    const storyMessages = [
+        { "role": "system", "content": "You write short stories for a blog." },
+        { "role": "user", "content": fullPrompt }
+    ];
     const response = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
-        messages: [
-            { "role": "system", "content": "You write short stories for a blog. Your readers are people interested in technology" },
-            { "role": "user", "content": prompt }
-        ]
+        messages: storyMessages
     });
 
     story.prompt = prompt;
@@ -46,8 +53,7 @@ async function generateStory() {
     const titleQuestion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
-            { "role": "system", "content": "You write short stories for a blog. Your readers are people interested in technology, programming and AI" },
-            { "role": "user", "content": prompt },
+            ...storyMessages,
             response.data.choices[0].message,
             { "role": "user", "content": "What is the title of the story? Respond only with the name, no other text is needed." }
         ]
@@ -57,25 +63,31 @@ async function generateStory() {
 
     console.log(story);
 
-    const promptData = "```markdown" + prompt + "\n```"
+    const promptData = "```markdown" + prompt + "\n```";
+
+    const today = getDate();
 
     const markdown = `---
 layout: "layouts/blog.html"
 title: ${story.title}
-date: ${today()}
+date: ${today}
 categories: blog
 ---
 ${story.content}
 \n
 ## Prompt
 ${promptData}
-`
+`;
+
+const fileName = `./src/blog/${today}-${string.sanitize.addDash(story.title)}.md`.toLowerCase();
 
     console.log(markdown);
-    fs.writeFile("./story.md", markdown, err => {
+    fs.writeFile(fileName, markdown, err => {
         if (err) {
             console.error(err);
             throw err;
+        } else {
+            console.log(`Finished writing to ${fileName}`);
         }
     });
 }
