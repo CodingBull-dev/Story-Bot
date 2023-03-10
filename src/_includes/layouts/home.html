@@ -7,11 +7,15 @@
     {{ content | safe }}
 </p>
 
-<h2>List of posts</h2>
-{% for post in collections.blog %}
+<h2>Latests posts</h2>
+{% set postslist = collections.blog | limit(3) %}
+{% for post in postslist %}
 <h2><a href={{ post.url }}>{{ post.data.title }}</a></h2>
+<h6 style="font-size: 14px">{{ post.date | w3DateFilter }}</h6>
 <p>{{ post.templateContent | excerpt }}</p>
 {% endfor %}
+
+<a href="/blog">See all posts</a>
 
 </div>
 </body>

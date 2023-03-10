@@ -1,6 +1,7 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = config => {
+    const w3DateFilter = require('./src/filters/w3-date-filter.js');
 
     // Plugins
     config.addPlugin(syntaxHighlight);
@@ -13,6 +14,13 @@ module.exports = config => {
         const content = post.replace(/(<([^>]+)>)/gi, "");
         return content.substr(0, content.lastIndexOf(" ", 200)) + "...";
     });
+
+    config.addFilter("limit", function (array, limit) {
+        return array.slice(0, limit);
+    });
+
+    // Add filters
+    config.addFilter('w3DateFilter', w3DateFilter);
 
     return {
         markdownTemplateEngine: 'njk',

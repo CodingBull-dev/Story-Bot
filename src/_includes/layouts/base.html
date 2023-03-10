@@ -10,7 +10,10 @@
 </head>
 
 <body>
-    <main tabindex="-1" id="main-content">{% block content %}{% endblock %}</main>
+    <main tabindex="-1" id="main-content">
+        {% include "partials/navbar.html" %}
+        {% block content %}{% endblock %}
+    </main>
 </body>
 
 </html>
