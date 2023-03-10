@@ -1,7 +1,14 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const postcss = require('postcss');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
 
 module.exports = config => {
     const w3DateFilter = require('./src/filters/w3-date-filter.js');
+    const postcssFilter = require('./src/filters/postcssFilter.js');
+
+    config.addNunjucksAsyncFilter('postcss', postcssFilter);
+      config.addWatchTarget('styles/**/*.css'); 
 
     // Plugins
     config.addPlugin(syntaxHighlight);
