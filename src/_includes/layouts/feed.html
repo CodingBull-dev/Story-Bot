@@ -1,0 +1,19 @@
+{% extends "layouts/base.html" %} 
+
+{% set pageHeaderTitle = title %}
+{% set pageHeaderSummary = content %}
+{% set postListItems = pagination.items %}
+
+{% block content %}
+  <article>
+    {% include "partials/page-header.html" %}
+    {% include "partials/blog-list.html" %}
+
+    {# If we leave pagination in for tags, the next and prev links will
+      link to tags and be rather confusing, so don't render in that situation #}
+    {% if not tag %}
+      {% include "partials/pagination.html" %}
+    {% endif %}
+  </article>
+
+{% endblock %}

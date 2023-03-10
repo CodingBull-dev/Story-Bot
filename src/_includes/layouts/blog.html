@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<h1 class="article-title">{{ title }}</h1>
+<hr />
+<p>
+    {{ content | safe }}
+</p>
+
+{% set previousPost = collections.blog | getPreviousCollectionItem %}
+{% set nextPost = collections.blog | getNextCollectionItem %}
+
+{% if previousPost %}Previous Blog Post: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>{% endif %}
+{% if nextPost %}Next Blog Post: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>{% endif %}
+
+</div>
+</body>
+
+</html>
+{% endblock %}

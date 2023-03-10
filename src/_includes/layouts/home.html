@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<h1 class="article-title">{{ title }}</h1>
+<hr />
+<p>
+    {{ content | safe }}
+</p>
+
+<h2>List of posts</h2>
+{% for post in collections.blog %}
+<h2><a href={{ post.url }}>{{ post.data.title }}</a></h2>
+<p>{{ post.templateContent | excerpt }}</p>
+{% endfor %}
+
+</div>
+</body>
+
+</html>
+{% endblock %}
