@@ -12,8 +12,10 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
     "html-minifier": "^4.0.0",
     "moment": "^2.29.4",
-    "openai": "^3.2.1"
+    "openai": "^3.2.1",
+    "string-sanitizer": "^2.0.2"
   }
 }
