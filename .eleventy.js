@@ -2,16 +2,17 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const autoprefixer = require('autoprefixer');
+const eleventyGoogleFonts = require("eleventy-google-fonts");
 
 module.exports = config => {
     const w3DateFilter = require('./src/filters/w3-date-filter.js');
     const postcssFilter = require('./src/filters/postcssFilter.js');
-
     config.addNunjucksAsyncFilter('postcss', postcssFilter);
       config.addWatchTarget('styles/**/*.css'); 
 
     // Plugins
     config.addPlugin(syntaxHighlight);
+    config.addPlugin(eleventyGoogleFonts);
 
     config.addCollection('blog', collection => {
         return [...collection.getFilteredByGlob('./src/blog/*.md')].reverse();
@@ -28,6 +29,8 @@ module.exports = config => {
 
     // Add filters
     config.addFilter('w3DateFilter', w3DateFilter);
+
+    config.addPassthroughCopy('./src/img/');
 
     return {
         markdownTemplateEngine: 'njk',
