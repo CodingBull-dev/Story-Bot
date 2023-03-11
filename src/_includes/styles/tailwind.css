@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
+
+.title {
+    font-family: 'Arvo', serif;
+}
 @tailwind utilities;
