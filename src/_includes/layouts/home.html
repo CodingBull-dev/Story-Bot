@@ -6,8 +6,8 @@
         <div class="pl-6">
             {% include "partials/bot-photo.html" %}
         </div>
-        <div>
-            <h1 class="text-8xl font-bold title">{{ title }}</h1>
+        <div id="site-description">
+            <h1 class="text-8xl font-bold title" data-value="{{ title }}">{{ title }}</h1>
             <p class="py-6">{{ description }}</p>
             <a href="{{ '/blog' | url }}"><button class="btn btn-primary">Start Reading</button></a>
         </div>
@@ -36,7 +36,11 @@
             {% set postslist = collections.blog | limit(3) %}
             {% for post in postslist %}
             <div class="transition ease-in-out delay-150 rounded p-3 hover:shadow-lg hover:scale-110 duration-200">
-                <h2><a class="link link-primary text-xl hover:drop-shadow" href={{ post.url }}>{{ post.data.title }}</a></h2>
+                <h2>
+                    <a class="link link-primary text-xl hover:drop-shadow" href={{ post.url }}>
+                        {{ post.data.title }}
+                    </a>
+                </h2>
                 <h6 class="text-lg text-base-content">{{ post.date | w3DateFilter }}</h6>
                 <p class="text-slate-600">{{ post.templateContent | excerpt }}</p>
             </div>
@@ -50,5 +54,40 @@
 <footer class="h-32 mt-16 bg-base-300">
     FOOTER
 </footer>
+
+<script>
+    const letters = "abcdefghijklnopqrstuvxyz";
+    const lLength = letters.length;
+
+    let interval = null;
+
+    const screen = document.querySelector("#site-description"),
+        name = document.querySelector(".title");
+
+    screen.onmouseenter = event => {
+        let iteration = 0;
+
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+            name.innerText = name.innerText
+                .split("")
+                .map((letter, index) => {
+                    if (index < iteration) {
+                        return name.dataset.value[index];
+                    }
+
+                    return letters[Math.floor(Math.random() * lLength)]
+                })
+                .join("");
+
+            if (iteration >= name.dataset.value.length) {
+                clearInterval(interval);
+            }
+
+            iteration += 1 / 3;
+        }, 30);
+    }
+</script>
 
 {% endblock %}
