@@ -3,17 +3,19 @@
   <footer>
     <div>
       <nav>
+        <div class="flex space-x-7 place-content-center">
         {% if pagination.href.previous %}
-          <a href="{{ pagination.href.previous }}{{ paginationAnchor }}" data-direction="backwards">
+          <a href="{{ pagination.href.previous }}{{ paginationAnchor }}" data-direction="backwards" class="link">
             <span>{{ paginationPrevText if paginationPrevText else 'Previous' }}</span>
           </a>
         {% endif %}
         {% if pagination.href.next %}
-          <a href="{{ pagination.href.next }}{{ paginationAnchor }}" data-direction="forwards">
+          <a href="{{ pagination.href.next }}{{ paginationAnchor }}" data-direction="forwards" class="link">
             <span>{{ paginationNextText if paginationNextText else 'Next' }}</span>
           </a>
         {% endif %}
       </nav>
+    </div>
     </div>
   </footer>
 {% endif %}

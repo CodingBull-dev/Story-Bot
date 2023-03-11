@@ -1,24 +1,54 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<h1 class="article-title">{{ title }}</h1>
-<hr />
-<p>
-    {{ content | safe }}
-</p>
-
-<h2>Latests posts</h2>
-{% set postslist = collections.blog | limit(3) %}
-{% for post in postslist %}
-<h2><a href={{ post.url }}>{{ post.data.title }}</a></h2>
-<h6 style="font-size: 14px">{{ post.date | w3DateFilter }}</h6>
-<p>{{ post.templateContent | excerpt }}</p>
-{% endfor %}
-
-<a href="/blog" class="text-xl">See all posts</a>
-
+<div class="hero min-h-screen">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="pl-6">
+            {% include "partials/bot-photo.html" %}
+        </div>
+        <div>
+            <h1 class="text-8xl font-bold title">{{ title }}</h1>
+            <p class="py-6">{{ description }}</p>
+            <a href="{{ '/blog' | url }}"><button class="btn btn-primary">Start Reading</button></a>
+        </div>
+    </div>
 </div>
-</body>
 
-</html>
+
+<section id="content" class="pt-16">
+    <div class="separator w-0 h-0">
+
+    </div>
+    <div class="bg-primary max-h-min text-primary-content pt-16 pb-16">
+        <div class="container mx-auto px-4">
+            <div class="[&>*]:p-4 [&>*]:text-2xl">
+                {{ content | safe }}
+            </div>
+        </div>
+    </div>
+    <div class="separator-bottom w-0 h-0 pb-16" />
+</section>
+
+<section id="latest">
+    <div class="container mx-auto px-4 md:px-16">
+        <h2 class="text-3xl mb-8">Latests posts</h2>
+        <div class="grid grid-cols-3 gap-5 pb-6">
+            {% set postslist = collections.blog | limit(3) %}
+            {% for post in postslist %}
+            <div class="transition ease-in-out delay-150 rounded p-3 hover:shadow-lg hover:scale-110 duration-200">
+                <h2><a class="link link-primary text-xl hover:drop-shadow" href={{ post.url }}>{{ post.data.title }}</a></h2>
+                <h6 class="text-lg text-base-content">{{ post.date | w3DateFilter }}</h6>
+                <p class="text-slate-600">{{ post.templateContent | excerpt }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="/blog" class="text-6xl link link-accent pt-32">See all posts</a>
+    </div>
+</section>
+
+<footer class="h-32 mt-16 bg-base-300">
+    FOOTER
+</footer>
+
 {% endblock %}

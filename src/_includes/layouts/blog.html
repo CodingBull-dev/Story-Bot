@@ -1,17 +1,31 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<h1 class="article-title">{{ title }}</h1>
-<hr />
-<p>
-    {{ content | safe }}
-</p>
+<article class="container mx-auto px-4 md:px-16 pb-16">
+    <a class="text-lg link link-secondary mb-8" href="{{ '/blog' | url }}">Back to more stories</a>
+    <h1 class="article-title text-6xl pb-16">{{ title }}</h1>
+    <div class="[&>h2]:text-4xl [&>h2]:my-6 [&>p]:my-4">
+        {{ content | safe }}
+    </div>
 
-{% set previousPost = collections.blog | getPreviousCollectionItem %}
-{% set nextPost = collections.blog | getNextCollectionItem %}
+    {% set previousPost = collections.blog | getPreviousCollectionItem %}
+    {% set nextPost = collections.blog | getNextCollectionItem %}
 
-{% if previousPost %}Previous Blog Post: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>{% endif %}
-{% if nextPost %}Next Blog Post: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>{% endif %}
+    <div class="grid grid-cols-2 gap-3 pt-16">
+        {% if previousPost %}
+        <div class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
+            Previous Blog Post: <a href="{{ previousPost.url }}" class="link link-primary">{{ previousPost.data.title
+                }}</a>
+        </div>
+        {% endif %}
+        {% if nextPost %}
+        <div class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
+            Next Blog Post: <a href="{{ nextPost.url }}" class="link link-primary">{{ nextPost.data.title }}</a>
+        </div>
+        {% endif %}
+    </div>
+
+</article>
 
 </div>
 </body>

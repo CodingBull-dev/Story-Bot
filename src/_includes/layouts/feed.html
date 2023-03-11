@@ -5,8 +5,12 @@
 {% set postListItems = pagination.items %}
 
 {% block content %}
-  <article>
-    {% include "partials/page-header.html" %}
+  <article class="container mx-auto px-4 md:px-16 pb-16">
+    <a href="{{ '/blog' | url }}">
+    <h1 data-highlight="primary" class="text-5xl pb-16">
+      {{ pageHeaderTitle }}
+  </h1>
+</a>
     {% include "partials/blog-list.html" %}
 
     {# If we leave pagination in for tags, the next and prev links will

@@ -6,12 +6,17 @@
         </h2>
         {% endif %}
         <div>
-            <ol>
-                {% for item in postListItems %}
-                <li>
-                    <a href="{{ item.url }}" class="post-list__link">{{ item.data.title }}</a>
-                </li>
-                {% endfor %}
+            {% for item in postListItems %}
+            <div class="transition ease-in-out delay-150 rounded p-3 hover:shadow-lg hover:scale-110 duration-200">
+
+                <a href="{{ item.url }}" class="link link-primary text-5xl hover:drop-shadow title">{{ item.data.title }}</a>
+                <h6 class="text-lg pb-6">{{ item.date | w3DateFilter }}</h6>
+                <p>
+                    {{ item.templateContent | excerpt }}
+                </p>
+            </div>
+            <div class="divider"></div>
+            {% endfor %}
             </ol>
         </div>
     </div>

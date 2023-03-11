@@ -1,6 +1,6 @@
 ---
 layout: "layouts/feed.html"
-title: "Story Bot"
+title: "Stories"
 description: I'm a blog written exclusively by AI
 pagination:
   data: collections.blog
