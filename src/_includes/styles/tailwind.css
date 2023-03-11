@@ -4,4 +4,19 @@
 .title {
     font-family: 'Arvo', serif;
 }
+
+.separator {
+    @apply w-0 h-0 border-b-primary border-b-8;
+    border-right: 100vw solid transparent;
+    border-bottom-width: 4vw;
+    margin-top: -4vw;
+}
+
+.separator-bottom {
+    @apply w-0 h-0 border-t-primary border-t-8;
+    border-left: 100vw solid transparent;
+    border-top-width: 4vw;
+    margin-bottom: -4vw;
+}
+
 @tailwind utilities;

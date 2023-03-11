@@ -1,0 +1,123 @@
+<div class="screen transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-125 duration-200">
+  <div class="screen-image"></div>
+  <div class="screen-overlay"></div>
+</div>
+
+<style>
+  :root {
+    --background-rgb: 29 30 34;
+
+    --blue-rgb: 33 150 243;
+    --primary-rgb: var(--blue-rgb);
+
+    --blob-color-1: rgb(var(--blue-rgb));
+    --blob-color-2: dodgerblue;
+  }
+
+  .screen {
+    position: relative;
+    width: 300px;
+    max-width: 80%;
+    border: 3px solid rgb(var(--primary-rgb)/ 80%);
+    aspect-ratio: 10 / 16;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: rgb(var(--primary-rgb) / 15%);
+  }
+
+  .screen-overlay {
+    background: linear-gradient(rgb(var(--primary-rgb) / 0.15),
+        rgb(var(--primary-rgb) / 0.15) 3px,
+        transparent 3px,
+        transparent 9px);
+    background-size: 100% 9px;
+    height: 100%;
+    width: 100%;
+    animation: pan-overlay 22s infinite linear;
+    position: absolute;
+    z-index: 2;
+    left: 0px;
+    top: 0px;
+  }
+
+  @keyframes pan-overlay {
+    from {
+      background-position: 0% 0%;
+    }
+
+    to {
+      background-position: 0% -100%;
+    }
+  }
+
+  @keyframes pan-image {
+    0% {
+      background-position: 36% 42%;
+      background-size: 200%;
+    }
+
+    20% {
+      background-position: 30% 35%;
+      background-size: 200%;
+    }
+
+    20.0001% {
+      /* -- View 2 -- */
+      background-position: 60% 85%;
+      background-size: 500%;
+    }
+
+    40% {
+      background-position: 49% 81%;
+      background-size: 500%;
+    }
+
+    40.0001% {
+      /* -- View 3 -- */
+      background-position: 80% 42%;
+      background-size: 300%;
+    }
+
+    60% {
+      background-position: 84% 33%;
+      background-size: 300%;
+    }
+
+    60.0001% {
+      /* -- View 4 -- */
+      background-position: 0% 0%;
+      background-size: 300%;
+    }
+
+    80% {
+      background-position: 15% 4%;
+      background-size: 300%;
+    }
+
+    80.0001% {
+      /* -- View 5 -- */
+      background-position: 80% 10%;
+      background-size: 300%;
+    }
+
+    100% {
+      background-position: 72% 14%;
+      background-size: 300%;
+    }
+  }
+
+
+
+  .screen>.screen-image {
+    position: absolute;
+    background-image: url("{{ '/img/bot-writers.png' | url }}");
+    height: 100%;
+    width: 100%;
+    background-size: 300%;
+    background-position: center;
+    filter: sepia(100%) hue-rotate(160deg);
+    opacity: 0.6;
+    animation: pan-image 15s linear infinite;
+  }
+
+</style>
