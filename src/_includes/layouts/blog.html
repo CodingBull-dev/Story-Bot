@@ -19,7 +19,7 @@
         </div>
         {% endif %}
         {% if nextPost %}
-        <div class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
+        <div class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200 {% if previousPost %} text-right {% endif %}">
             Next Blog Post: <a href="{{ nextPost.url }}" class="link link-primary">{{ nextPost.data.title }}</a>
         </div>
         {% endif %}
