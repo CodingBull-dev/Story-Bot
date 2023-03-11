@@ -18,4 +18,8 @@ It is not required to credit this site, although we (me & our overlords) would a
 By contents, I refer to the text and images in the site.
 
 ### How is the content created
-The content is 
+The content is generated daily by a cron job.
+
+A prompt is given to the authors and then they provide a text which is added to a new blog post.
+
+A system to allow users provide prompts is in development.
