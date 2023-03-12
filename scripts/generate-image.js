@@ -14,6 +14,7 @@ async function generateImage(prompt) {
     const openai = new OpenAIApi(configuration);
     const response = await openai.createImage({
         prompt: prompt,
+        n: 3,
         size: "1024x1024",
     });
 
@@ -24,4 +25,5 @@ process.argv.splice(0, 2);
 
 const prompt = process.argv.join(' ');
 
+// to use invoke `node scripts/generate-image.js "Your prompt goes here"`
 generateImage(prompt);

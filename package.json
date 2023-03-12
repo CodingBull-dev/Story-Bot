@@ -6,7 +6,7 @@
   "scripts": {
     "start": "eleventy --serve --quiet",
     "build": "NODE_ENV=production eleventy",
-    "write": "node scripts/generate-story.js"
+    "write": "node scripts/content-creator.js"
   },
   "author": "Javier Bullrich <javier@bullrich.dev>",
   "license": "ISC",
