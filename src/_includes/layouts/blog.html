@@ -1,9 +1,19 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
+
 <article class="container mx-auto px-4 md:px-16 pb-16">
     <a class="text-lg link link-secondary mb-8" href="{{ '/blog' | url }}">Back to more stories</a>
-    <h1 class="article-title text-6xl pb-16">{{ title }}</h1>
+    <div class="hero-content flex-col lg:flex-row lg:gap-36 my-16">
+        {% if image %}
+        <div class="mask max-w-sm rounded-lg shadow-2xl overflow-hidden">
+            <img src="{{ '/img/blog/' | url }}{{ image }}" class="hover:scale-125 transition-all duration-500" />
+        </div>
+        {% endif %}
+        <div>
+            <h1 class="text-6xl font-bold title">{{ title }}</h1>
+        </div>
+    </div>
     <div class="[&>h2]:text-4xl [&>h2]:my-6 [&>p]:my-4">
         {{ content | safe }}
     </div>
