@@ -17,6 +17,14 @@ module.exports = config => {
     config.addCollection('blog', collection => {
         return [...collection.getFilteredByGlob('./src/blog/*.md')].reverse();
     });
+    
+
+    config.addNunjucksGlobal('isOneDayOld', (startDate) => {
+        const postDate = new Date(startDate);
+        const today = new Date();
+        return postDate.setHours(0,0,0,0) == today.setHours(0,0,0,0);
+        // return ((new Date().getTime() - new Date(startDate).getTime()) / 1000) > 604800
+    });
 
     config.addFilter("excerpt", (post) => {
         const content = post.replace(/(<([^>]+)>)/gi, "");

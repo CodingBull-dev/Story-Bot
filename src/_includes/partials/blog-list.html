@@ -14,6 +14,9 @@
                 <p>
                     {{ item.templateContent | excerpt }}
                 </p>
+                {% if isOneDayOld(item.date) %}
+                <span class="indicator-item badge badge-primary">new</span> 
+                {% endif %}
             </div>
             <div class="divider"></div>
             {% endfor %}
