@@ -19,4 +19,8 @@
     margin-bottom: -4vw;
 }
 
+.main-body {
+    min-height: 95vh;
+}
+
 @tailwind utilities;
