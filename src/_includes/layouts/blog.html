@@ -1,5 +1,9 @@
 {% extends "layouts/base.html" %}
 
+{% if image %}
+{% set socialImage = '/img/blog/' | url %}{% set socialImage = socialImage +  image  %}
+{% endif %}
+
 {% block content %}
 
 <article class="container mx-auto px-4 md:px-16 pb-16">
@@ -29,7 +33,8 @@
         </div>
         {% endif %}
         {% if nextPost %}
-        <div class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200 {% if previousPost %} text-right {% endif %}">
+        <div
+            class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200 {% if previousPost %} text-right {% endif %}">
             Next Blog Post: <a href="{{ nextPost.url }}" class="link link-primary">{{ nextPost.data.title }}</a>
         </div>
         {% endif %}
