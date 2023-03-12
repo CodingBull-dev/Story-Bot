@@ -3,14 +3,14 @@
   <footer>
     <div>
       <nav>
-        <div class="flex space-x-7 place-content-center">
+        <div class="btn-group grid grid-cols-2">
         {% if pagination.href.previous %}
-          <a href="{{ pagination.href.previous }}{{ paginationAnchor }}" data-direction="backwards" class="link">
+          <a class="btn btn-outline" href="{{ pagination.href.previous }}{{ paginationAnchor }}" data-direction="backwards" class="link">
             <span>{{ paginationPrevText if paginationPrevText else 'Previous' }}</span>
           </a>
         {% endif %}
         {% if pagination.href.next %}
-          <a href="{{ pagination.href.next }}{{ paginationAnchor }}" data-direction="forwards" class="link">
+          <a class="btn btn-outline" href="{{ pagination.href.next }}{{ paginationAnchor }}" data-direction="forwards" class="link">
             <span>{{ paginationNextText if paginationNextText else 'Next' }}</span>
           </a>
         {% endif %}
