@@ -7,7 +7,7 @@
         {% endif %}
         <div>
             {% for item in postListItems %}
-            <div class="transition ease-in-out delay-150 rounded p-3 hover:shadow-lg hover:scale-110 duration-200">
+            <div class="transition ease-in-out delay-150 card p-3 hover:shadow-xl hover:scale-110 duration-200">
                 {% if isOneDayOld(item.date) %}
                 <span class="indicator-item badge badge-primary">new</span> 
                 {% endif %}
