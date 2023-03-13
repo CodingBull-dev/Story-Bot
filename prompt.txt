@@ -1,0 +1,3 @@
+The story must be one of the following genres (or a combination of them): Fantasy, Fiction, Horror, or Humor.
+
+Extra points if the story ends with an unexpected twist.

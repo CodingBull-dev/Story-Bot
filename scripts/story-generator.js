@@ -92,16 +92,17 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
     async generateMarkdownFile(story, img) {
         console.log("Generating markdown file");
 
-        const promptData = "```markdown" + story.prompt + "\n```";
+        const promptData = "```markdown\n" + story.prompt + "\n```";
 
         const fileConfiguration = `---
 layout: "layouts/blog.html"
 title: ${story.title}
 date: ${this.today}
 categories: blog${img ? `\nimage: ${img}` : ''}
+tags: 'gpt'
 ---`;
 
-        console.log("Configuration for the markdown file", fileConfiguration);
+        console.log("Configuration for the markdown file\n", fileConfiguration);
 
         const markdown = `${fileConfiguration}
 ${story.content}
@@ -132,7 +133,7 @@ ${promptData}
             size: "512x512",
         });
 
-        console.log(response.data);
+        console.log('Got the image.', 'Downloading file now!');
 
         const imageName = `${this.today}-${string.sanitize.addDash(story.title)}.png`.toLowerCase();
 
@@ -146,12 +147,7 @@ ${promptData}
         }
     }
 
-    async generateBlogPost() {
-        const prompt = `
-The story must be one of the following genres (or a combination of them): Fantasy, Fiction, Horror, or Humor.
-
-Extra points if the story ends with an unexpected twist.
-`;
+    async generateBlogPost(prompt) {
         const story = await this.generateStory(prompt);
         const photo = await this.generateStoryPhoto(story);
         const file = await this.generateMarkdownFile(story, photo);

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const StoryGenerator = require("./story-generator");
 
 const key = process.env.OPEN_AI_KEY;
@@ -6,4 +7,12 @@ if (!key) {
 }
 
 const generator = new StoryGenerator(key);
-generator.generateBlogPost();
+
+// We have the prompt to read available in a text file
+fs.readFile('./prompt.txt', 'utf8', function (err, data) {
+    if (err) {
+        throw err;
+    }
+    // We create the blog post with the data of the prompt
+    generator.generateBlogPost(data);
+});
