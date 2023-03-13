@@ -1,7 +1,5 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const postcss = require('postcss');
-const tailwindcss = require('tailwindcss');
-const autoprefixer = require('autoprefixer');
+const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const eleventyGoogleFonts = require("eleventy-google-fonts");
 
 module.exports = config => {
@@ -13,6 +11,7 @@ module.exports = config => {
     // Plugins
     config.addPlugin(syntaxHighlight);
     config.addPlugin(eleventyGoogleFonts);
+    config.addPlugin(rssPlugin);
 
     config.addCollection('blog', collection => {
         return [...collection.getFilteredByGlob('./src/blog/*.md')].reverse();

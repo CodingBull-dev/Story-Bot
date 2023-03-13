@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
