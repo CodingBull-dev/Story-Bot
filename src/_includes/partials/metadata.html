@@ -26,6 +26,7 @@ them into the mix. #}
 <meta property="og:url" content="{{ site.url }}" />
 
 {% if socialImage %}
+{% set socialImage = site.url + socialImage %}
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="og:image" content="{{ socialImage }}" />
 <meta name="twitter:image" content="{{ socialImage }}" />
