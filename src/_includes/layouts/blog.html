@@ -37,18 +37,17 @@
     {% set previousPost = collections.blog | getPreviousCollectionItem %}
     {% set nextPost = collections.blog | getNextCollectionItem %}
 
-    <div class="grid grid-cols-2 gap-3 pt-16">
+    <div class="btn-group grid grid-cols-2 mt-8">
         {% if previousPost %}
-        <div class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
-            Previous Blog Post: <a href="{{ previousPost.url }}" class="link link-primary">{{ previousPost.data.title
-                }}</a>
-        </div>
+        <a class="btn btn-outline" href="{{ previousPost.url }}" data-direction="backwards" class="link">
+            Previous Blog Post: <span class="link"> {{ previousPost.data.title }}</span>
+        </a>
         {% endif %}
         {% if nextPost %}
-        <div
-            class="text-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200 {% if previousPost %} text-right {% endif %}">
-            Next Blog Post: <a href="{{ nextPost.url }}" class="link link-primary">{{ nextPost.data.title }}</a>
-        </div>
+
+        <a class="btn btn-outline" href="{{ nextPost.url }}" data-direction="forwards" class="link">
+            Next Blog Post: <span class="link"> {{ nextPost.data.title }}</span>
+        </a>
         {% endif %}
     </div>
 
