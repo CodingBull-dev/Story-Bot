@@ -32,21 +32,28 @@
     <div class="separator-bottom w-0 h-0 pb-16" />
 </section>
 
-<section id="latest">
+<section id="latest" class="pb-32">
     <div class="container mx-auto px-4 md:px-16">
         <h2 class="text-3xl mb-8">Latests posts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pb-6 place-items-center md:place-items-stretch">
             {% set postslist = collections.blog | limit(3) %}
             {% for post in postslist %}
-            <div class="transition ease-in-out delay-150 rounded p-3 hover:shadow-lg hover:scale-110 duration-200">
-                <h2>
-                    <a class="link link-primary text-xl hover:drop-shadow" href={{ post.url }}>
-                        {{ post.data.title }}
-                    </a>
-                </h2>
-                <h6 class="text-lg text-base-content">{{ post.date | w3DateFilter }}</h6>
-                <p class="text-slate-600">{{ post.templateContent | excerpt }}</p>
-            </div>
+            <a href="{{ post.url}}" class="indicator">
+                {% if isOneDayOld(post.date) %}
+                <span class="indicator-item badge badge-primary">new</span>
+                {% endif %}
+                <div
+                    class="card card-compact w-96 bg-base-100 shadow-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
+                    <figure class="h-36">
+                        <img src="{{ '/img/blog/' | url }}{{ post.data.image }}" alt="{{ post.data.title }}" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title link link-primary">{{ post.data.title }}</h2>
+                        <h6 class="text-lg text-base-content">{{ post.date | w3DateFilter }}</h6>
+                        <p class="text-slate-600">{{ post.templateContent | excerpt }}</p>
+                    </div>
+                </div>
+            </a>
             {% endfor %}
         </div>
 
