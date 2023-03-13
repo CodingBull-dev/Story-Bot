@@ -63,7 +63,7 @@
     const screen = document.querySelector("#site-description"),
         name = document.querySelector(".title");
 
-    screen.onmouseenter = event => {
+    function shakeLetters() {
         let iteration = 0;
 
         clearInterval(interval);
@@ -87,6 +87,9 @@
             iteration += 1 / 3;
         }, 30);
     }
+
+    screen.onmouseenter = event => shakeLetters();
+    window.onload = event => shakeLetters();
 </script>
 
 {% endblock %}
