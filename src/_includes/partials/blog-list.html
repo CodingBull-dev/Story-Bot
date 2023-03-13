@@ -9,15 +9,16 @@
             {% for item in postListItems %}
             <div class="transition ease-in-out delay-150 card p-3 hover:shadow-xl hover:scale-110 duration-200">
                 {% if isOneDayOld(item.date) %}
-                <span class="indicator-item badge badge-primary">new</span> 
+                <span class="indicator-item badge badge-primary">new</span>
                 {% endif %}
                 <div class="grid md:grid-cols-6 gap-4">
-                    <div class="avatar justify-center">
-                        <div class="md:w-40 mask mask-squircle">
-                        <img src="{{ '/img/blog/' | url }}{{ item.data.image }}"/>
+                    <div class="md:avatar justify-center">
+                        <div class="md:w-40 md:mask md:mask-squircle">
+                            <img class="object-cover h-36 w-full md:h-full rounded-t-lg"
+                                src="{{ '/img/blog/' | url }}{{ item.data.image }}" />
                         </div>
                     </div>
-                    <div class="col-span-5">
+                    <div class="md:col-span-5">
                         <a href="{{ item.url }}" class="link link-primary text-5xl hover:drop-shadow title">{{
                             item.data.title }}</a>
                         <h6 class="text-lg pb-6">{{ item.date | w3DateFilter }}</h6>
