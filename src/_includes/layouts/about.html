@@ -1,17 +1,29 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<article class="container mx-auto px-4 md:px-16 pb-16">
+<article>
+  <div class="container mx-auto px-4 md:px-16 pb-16">
     <h1 class="article-title text-6xl pb-16">{{ title }}</h1>
     <div class="alert shadow-lg mb-16">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <span>Disclaimer: {{ disclaimer }}</span>
-        </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          class="stroke-current flex-shrink-0 w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>Disclaimer: {{ disclaimer }}</span>
       </div>
-    <div class="[&>h3]:text-4xl [&>h3]:my-6 [&>p]:my-4">
-        {{ content | safe }}
     </div>
+  </div>
+  <div class="separator w-screen h-0"> </div>
+
+  <div class="bg-primary max-h-min text-primary-content pt-16 pb-16">
+    <div class="container mx-auto px-4 md:px-16">
+      <div class="[&>h3]:text-4xl [&>h3]:my-6 [&>p]:my-4">
+        {{ content | safe }}
+      </div>
+    </div>
+  </div>
 
 </article>
 {% endblock %}
