@@ -62,6 +62,7 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
         ];
         const response = await this.openai.createChatCompletion({
             model: "gpt-3.5-turbo",
+            temperature: 0.8,
             messages: storyMessages
         });
 
