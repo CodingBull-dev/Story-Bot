@@ -56,7 +56,7 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
 
         const temperature = Number(Math.random().toFixed(2));
 
-        console.log("Requesting story", "Temperature for the story is:", temperature);
+        console.log("Requesting story.", "Temperature for the story is:", temperature);
 
         const storyMessages = [
             { "role": "system", "content": "You write short stories for a blog." },

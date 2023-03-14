@@ -33,7 +33,7 @@ jobs:
         run: npm run action
         env:
           USER_NAME: ${{ github.event.issue.user.login }}
-          AVATAR: ${{ github.event.issue.user.avatar_url }}
+          USER_AVATAR: ${{ github.event.issue.user.avatar_url }}
           OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}
       - name: Commit the story
         env:
