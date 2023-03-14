@@ -40,7 +40,7 @@
             {% for post in postslist %}
             <a href="{{ post.url}}" class="indicator">
                 {% if isOneDayOld(post.date) %}
-                <span class="indicator-item badge badge-primary">new</span>
+                <span class="indicator-item indicator-center md:indicator-top md:indicator-end badge badge-primary">new</span>
                 {% endif %}
                 <div
                     class="card card-compact w-96 bg-base-100 shadow-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
