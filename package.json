@@ -6,7 +6,8 @@
   "scripts": {
     "start": "eleventy --serve --quiet",
     "build": "NODE_ENV=production eleventy",
-    "write": "node scripts/content-creator.js"
+    "write": "node scripts/content-creator.js",
+    "action": "node scripts/action.js"
   },
   "author": "Javier Bullrich <javier@bullrich.dev>",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "@11ty/eleventy": "^2.0.0",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "@actions/core": "^1.10.0",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
     "cssnano": "^5.1.15",
