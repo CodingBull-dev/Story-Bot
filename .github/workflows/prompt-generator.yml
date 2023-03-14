@@ -1,0 +1,61 @@
+name: "Prompt Generator"
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  parse-prompt:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'prompt'
+    permissions:
+      issues: read
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Parse Issue Body
+        id: parse_prompt
+        uses: peter-murray/issue-forms-body-parser@v3.0.0
+        with:
+          issue_id: ${{ github.event.issue.number }}
+          separator: '###'
+          label_marker_start: '✒️'
+          label_marker_end: '🖊️'
+      - uses: actions/checkout@v3
+      - name: Write Prompt to file
+        run: echo '${{ fromJson(steps.parse_prompt.outputs.payload).Prompt }}' > prompt.txt
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - name: Write story
+        id: write
+        run: npm run action
+        env:
+          USER_NAME: ${{ github.event.issue.user.login }}
+          AVATAR: ${{ github.event.issue.user.avatar_url }}
+          OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}
+      - name: Commit the story
+        env:
+          USERNAME: ${{ github.event.issue.user.login }}
+        run: |
+          git config --global user.name 'Story Bot'
+          git config --global user.email 'info@storybot.dev'
+          git checkout -b prompt/issue-${{ github.event.issue.number }}
+          git add ./src/blog
+          git add ./src/img/blog
+          git commit -m "✍️ ${{ steps.write.outputs.title }}
+
+          Co-authored-by: $USERNAME <$USERNAME@users.noreply.github.com>"
+          git push --set-upstream origin prompt/issue-${{ github.event.issue.number }}
+      - name: Create Body file
+        run: |
+          echo "This PR closes #${{ github.event.issue.number }}" >> body.txt
+          echo "## Prompt" >> body.txt
+          echo "${{ fromJson(steps.parse_prompt.outputs.payload).Prompt }}" >> body.txt
+      - name: Create PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create --title "✍️ ${{ steps.write.outputs.title }}" --body-file body.txt
+
