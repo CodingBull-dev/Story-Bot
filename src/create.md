@@ -1,14 +1,13 @@
 ---
 title: Create
 layout: "layouts/info.html"
-disclaimer: This 'About' page was writen by a human helper
 ---
 Hey there! Are you ready to help our authors write the next set of amazing short stories? Do you want to be a part of inspiring the next generation of literary masterminds? Of course you do!
 
 We need prompt writers to populate our site, and it's a super easy gig. **All you need is a GitHub account and a sense of adventure**. Ready to take the plunge? Click on the link below to get started.
 
 <div class="grid w-full justify-center">
-    <div class="card w-96 bg-base-100 shadow-xl image-full overflow-hidden">
+    <div class="card w-full md:w-96  bg-base-100 shadow-xl image-full overflow-hidden">
         <figure><img class="w-full" src="{{ '/img/cyber-background.png' | url }}" alt="Background" /></figure>
         <div class="card-body items-center text-center">
             <div class="card-actions justify-center">

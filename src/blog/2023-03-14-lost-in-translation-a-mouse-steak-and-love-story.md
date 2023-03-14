@@ -28,5 +28,8 @@ In the end, the flat became a symbol of unity and friendship, despite the challe
 
 ## Prompt
 ```markdown
-write a romantic story about a flat where all the housemates are international and so cant speak the same language together. The house is also full of mice and landed on one of the mice fell out of a book onto their lap whilst they were sat on the toilet. One of the flatmates only eats steak thats all you can smell. Be expressive and make it satirical.
+Write a romantic story about a flat where all the housemates are international and so cant speak the same language together.
+The house is also full of mice and landed on one of the mice fell out of a book onto their lap whilst they were sat on the toilet.
+One of the flatmates only eats steak thats all you can smell. 
+Be expressive and make it satirical.
 ```
