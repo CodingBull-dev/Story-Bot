@@ -46,11 +46,10 @@ class StoryGenerator {
     async generateStory(prompt) {
         // add the instruction for the prompt
         const fullPrompt = `
-Write a story. Has to be at least 5 paragraphs long.
-
-${prompt}
-
-Don't write the title of the story. I'll ask you about it in a follow up question`;
+Write a blog post for a blog that contains short stories. It must be at least 5 paragrahs long.
+Don't write the title of the story. I'll ask you about it in a follow up question
+Your prompt is the following:
+${prompt}`;
 
         const story = {};
 
@@ -95,6 +94,25 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
         story.title = title;
 
         console.log("Got the story title:", story.title);
+
+        const imgPrompt = `Based on the previous story, write a prompt for an image generation service. It is intended to be the cover of the blog post.
+Respond only with the prompt. No other text is needed`
+
+        const promptQuestion = await this.openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: [
+                ...storyMessages,
+                response.data.choices[0].message,
+                { "role": "user", "content": "What would you call the story? Respond only with the name, no other text is needed." },
+                titleQuestion.data.choices[0].message,
+                { "role": "user", "content": imgPrompt }
+            ]
+        });
+
+        const imagePrompt = promptQuestion.data.choices[0].message.content;
+        console.log("Image prompt:", imagePrompt);
+
+        story.imagePrompt = imagePrompt;
 
         return story;
     }
@@ -149,15 +167,13 @@ ${promptData}
     }
 
     async generateStoryPhoto(story) {
-        const prompt = `Create the cover image for a story called '${story.title}'`;
-
         const imageName = `${this.today}-${string.sanitize.addDash(story.title)}.png`.toLowerCase();
 
-        console.log('Generating image for the story with the following prompt:', prompt);
+        console.log('Generating image for the story with the following prompt:', story.imagePrompt);
 
         try {
             const response = await this.openai.createImage({
-                prompt,
+                prompt: story.imagePrompt,
                 size: "512x512",
             });
 
