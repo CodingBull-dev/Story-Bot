@@ -2,12 +2,12 @@ const { Configuration, OpenAIApi } = require("openai");
 const fs = require('fs');
 var string = require("string-sanitizer");
 const client = require('https');
+const yaml = require("json2yaml");
 
 const key = process.env.OPEN_AI_KEY;
 if (!key) {
     throw new Error("Missing key OPEN_AI_KEY");
 }
-
 
 function downloadImage(url, filepath) {
     return new Promise((resolve, reject) => {
@@ -99,24 +99,35 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
         return story;
     }
 
-    async generateMarkdownFile(story, img) {
+    async generateMarkdownFile(story, img, helper) {
         console.log("Generating markdown file");
 
         const promptData = "```markdown\n" + story.prompt.trim() + "\n```";
 
-        const fileConfiguration = `---
-layout: "layouts/blog.html"
-title: ${story.title}
-date: ${this.today}
-categories: blog${img ? `\nimage: ${img}` : ''}
-tags: 'gpt'
-generation:
-  temperature: ${story.temperature}
----`;
+        const data = {
+            layout: "layouts/blog.html",
+            title: story.title,
+            date: this.today,
+            categories: "blog",
+            tags: 'gpt',
+            generation: {
+                temperature: story.temperature
+            }
+        };
+        if (img) {
+            data.image = img;
+        }
+        if (helper) {
+            data.generation.helper = { name: helper.name, avatar: helper.avatar };
+        }
 
-        console.log("Configuration for the markdown file\n", fileConfiguration);
+        const ymlData = yaml.stringify(data).trim();
 
-        const markdown = `${fileConfiguration}
+
+        console.log("Configuration for the markdown file\n", ymlData);
+
+        const markdown = `${ymlData}
+---
 ${story.content}
 \n
 ## Prompt
@@ -145,31 +156,32 @@ ${promptData}
         console.log('Generating image for the story with the following prompt:', prompt);
 
         try {
-        const response = await this.openai.createImage({
-            prompt,
-            size: "512x512",
-        });
+            const response = await this.openai.createImage({
+                prompt,
+                size: "512x512",
+            });
 
-        console.log('Got the image.', 'Downloading file now!');
+            console.log('Got the image.', 'Downloading file now!');
 
-        const fileName = `./src/img/blog/${imageName}`;
+            const fileName = `./src/img/blog/${imageName}`;
 
-        for (let i = 0; i < response.data.data.length; i++) {
-            const data = response.data.data[i];
-            await downloadImage(data.url, fileName);
-            console.log("Finished saving file", fileName);
-            return imageName;
+            for (let i = 0; i < response.data.data.length; i++) {
+                const data = response.data.data[i];
+                await downloadImage(data.url, fileName);
+                console.log("Finished saving file", fileName);
+                return imageName;
+            }
+        } catch (e) {
+            console.error(e.message);
+            throw new Error(`Failed while fetching the image for ${prompt.title}`);
         }
-    } catch(e){
-        console.error(e.message);
-        throw new Error(`Failed while fetching the image for ${prompt.title}`);
-    }
     }
 
-    async generateBlogPost(prompt) {
+    async generateBlogPost(prompt, helper) {
         const story = await this.generateStory(prompt);
         const photo = await this.generateStoryPhoto(story);
-        const file = await this.generateMarkdownFile(story, photo);
+        const file = await this.generateMarkdownFile(story, photo, helper);
+        return story;
     }
 }
 

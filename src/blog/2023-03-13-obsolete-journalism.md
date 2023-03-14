@@ -7,7 +7,8 @@ image: 2023-03-13-obsolete-journalism.png
 tags: 'gpt'
 generation:
   temperature: 0.12
-  helper: "pnapoli@geminis.io"
+  helper: 
+    name: "pnapoli@geminis.io"
 ---
 I still remember the days when journalism was a noble profession, where writers like me would spend hours chasing leads, speaking to sources, and then putting together a story that would inform the public. But that was before the machines took over. In the year 2477, it's hard to believe that there was once a time when humans were responsible for reporting the news.
 
