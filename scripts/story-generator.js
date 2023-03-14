@@ -54,7 +54,9 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
 
         const story = {};
 
-        console.log("Requesting story")
+        const temperature = Number(Math.random().toFixed(2));
+
+        console.log("Requesting story", "Temperature for the story is:", temperature);
 
         const storyMessages = [
             { "role": "system", "content": "You write short stories for a blog." },
@@ -62,12 +64,13 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
         ];
         const response = await this.openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            temperature: 0.8,
+            temperature: temperature,
             messages: storyMessages
         });
 
         story.prompt = prompt;
         story.content = response.data.choices[0].message.content;
+        story.temperature = temperature;
 
         console.log("Got the story!", `It is ${story.content.split(" ").length} words long!`);
 
@@ -78,11 +81,18 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
             messages: [
                 ...storyMessages,
                 response.data.choices[0].message,
-                { "role": "user", "content": "What is the title of the story? Respond only with the name, no other text is needed." }
+                { "role": "user", "content": "What would you call the story? Respond only with the name, no other text is needed." }
             ]
         });
 
-        story.title = titleQuestion.data.choices[0].message.content;
+        let title = titleQuestion.data.choices[0].message.content
+
+        // Remove dots at the end of the title
+        if (title[title.length - 1] === ".") {
+            title = title.slice(0, -1);
+        }
+
+        story.title = title;
 
         console.log("Got the story title:", story.title);
 
@@ -92,7 +102,7 @@ Don't write the title of the story. I'll ask you about it in a follow up questio
     async generateMarkdownFile(story, img) {
         console.log("Generating markdown file");
 
-        const promptData = "```markdown\n" + story.prompt + "\n```";
+        const promptData = "```markdown\n" + story.prompt.trim() + "\n```";
 
         const fileConfiguration = `---
 layout: "layouts/blog.html"
@@ -100,6 +110,8 @@ title: ${story.title}
 date: ${this.today}
 categories: blog${img ? `\nimage: ${img}` : ''}
 tags: 'gpt'
+generation:
+  temperature: ${story.temperature}
 ---`;
 
         console.log("Configuration for the markdown file\n", fileConfiguration);
@@ -127,15 +139,18 @@ ${promptData}
 
     async generateStoryPhoto(story) {
         const prompt = `Create the cover image for a story called '${story.title}'`;
+
+        const imageName = `${this.today}-${string.sanitize.addDash(story.title)}.png`.toLowerCase();
+
         console.log('Generating image for the story with the following prompt:', prompt);
+
+        try {
         const response = await this.openai.createImage({
             prompt,
             size: "512x512",
         });
 
         console.log('Got the image.', 'Downloading file now!');
-
-        const imageName = `${this.today}-${string.sanitize.addDash(story.title)}.png`.toLowerCase();
 
         const fileName = `./src/img/blog/${imageName}`;
 
@@ -145,6 +160,10 @@ ${promptData}
             console.log("Finished saving file", fileName);
             return imageName;
         }
+    } catch(e){
+        console.error(e.message);
+        throw new Error(`Failed while fetching the image for ${prompt.title}`);
+    }
     }
 
     async generateBlogPost(prompt) {
