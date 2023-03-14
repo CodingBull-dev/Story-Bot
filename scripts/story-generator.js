@@ -46,8 +46,9 @@ class StoryGenerator {
     async generateStory(prompt) {
         // add the instruction for the prompt
         const fullPrompt = `
-Write a blog post for a blog that contains short stories. It must be at least 5 paragrahs long.
-Don't write the title of the story. I'll ask you about it in a follow up question
+Write a post for a blog. It must be at least 5 paragrahs long.
+Don't write the title of the story. I'll ask you about it in a follow up question.
+Only write the post. You do not need to start the post by saying anything like "Welcome to our blog".
 Your prompt is the following:
 ${prompt}`;
 
@@ -58,7 +59,7 @@ ${prompt}`;
         console.log("Requesting story.", "Temperature for the story is:", temperature);
 
         const storyMessages = [
-            { "role": "system", "content": "You write short stories for a blog." },
+            { "role": "system", "content": "You are an author for a blog. The blog is about short stories." },
             { "role": "user", "content": fullPrompt }
         ];
         const response = await this.openai.createChatCompletion({
@@ -80,7 +81,7 @@ ${prompt}`;
             messages: [
                 ...storyMessages,
                 response.data.choices[0].message,
-                { "role": "user", "content": "What would you call the story? Respond only with the name, no other text is needed." }
+                { "role": "user", "content": "What would you call the story (or post)? Respond only with the name, no other text is needed." }
             ]
         });
 
@@ -110,7 +111,6 @@ Respond only with the prompt. No other text is needed`
         });
 
         const imagePrompt = promptQuestion.data.choices[0].message.content;
-        console.log("Image prompt:", imagePrompt);
 
         story.imagePrompt = imagePrompt;
 
