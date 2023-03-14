@@ -9,7 +9,7 @@ body:
     id: prompt
     attributes:
       label: "✒️Prompt🖊️"
-      description: Write your proposed prompt. Try to be as goofy or original as you want!
+      description: Write your proposed prompt. Be as goofy or original as you want!
       placeholder: > 
         Example:
         Write a story where the main character find true happiness. 

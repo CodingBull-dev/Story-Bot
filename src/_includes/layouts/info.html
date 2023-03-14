@@ -4,6 +4,7 @@
 <article>
   <div class="container mx-auto px-4 md:px-16 pb-16">
     <h1 class="article-title text-6xl pb-16">{{ title }}</h1>
+    {% if disclaimer %}
     <div class="alert shadow-lg mb-16">
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -14,12 +15,13 @@
         <span>Disclaimer: {{ disclaimer }}</span>
       </div>
     </div>
+    {% endif %}
   </div>
   <div class="separator w-screen h-0"> </div>
 
   <div class="bg-primary max-h-min text-primary-content pt-16 pb-16">
     <div class="container mx-auto px-4 md:px-16">
-      <div class="[&>h3]:text-4xl [&>h3]:my-6 [&>p]:my-4 lora">
+      <div class="[&>h3]:text-4xl [&>h3]:my-6 [&>p]:my-4 [&>p]:lora [&>h3]:">
         {{ content | safe }}
       </div>
     </div>
