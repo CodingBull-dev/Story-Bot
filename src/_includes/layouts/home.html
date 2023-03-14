@@ -9,8 +9,8 @@
             {% include "partials/bot-photo.html" %}
         </div>
         <div id="site-description">
-            <h1 class="text-8xl font-bold title" data-value="{{ title }}">{{ title }}</h1>
-            <p class="py-6">{{ description }}</p>
+            <h1 class="text-8xl font-bold title" id="landing-title" data-value="{{ title }}">{{ title }}</h1>
+            <p class="py-6 source-sans">{{ description }}</p>
             <a href="{{ '/blog' | url }}"><button class="btn btn-primary">Start Reading</button></a>
         </div>
     </div>
@@ -23,7 +23,7 @@
     </div>
     <div class="bg-primary max-h-min text-primary-content pt-16 pb-16">
         <div class="container mx-auto px-4">
-            <div class="[&>*]:p-4 [&>*]:text-2xl">
+            <div class="[&>*]:p-4 [&>*]:text-2xl mulish">
                 {{ content | safe }}
                 <a href="{{ '/about' | url }}"><button class="btn btn-secondary mt-16">Learn more</button></a>
             </div>
@@ -68,7 +68,7 @@
     let interval = null;
 
     const screen = document.querySelector("#site-description"),
-        name = document.querySelector(".title");
+        name = document.querySelector("#landing-title");
 
     function shakeLetters() {
         let iteration = 0;

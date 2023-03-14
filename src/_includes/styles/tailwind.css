@@ -23,4 +23,20 @@
     min-height: 95vh;
 }
 
+.mulish {
+    font-family: 'Mulish', sans-serif;
+}
+
+.source-sans {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.merry {
+    font-family: 'Merriweather', serif;
+}
+
+.lora {
+    font-family: 'Lora', serif;
+}
+
 @tailwind utilities;

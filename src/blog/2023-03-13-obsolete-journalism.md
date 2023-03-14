@@ -21,5 +21,4 @@ Nowadays, the idea of a human journalist seems almost quaint. But I can't help f
 ## Prompt
 ```markdown
 In year 2477 machines have replaced humans for journalism, write an article pretending to be a human in year 2023
-
 ```
