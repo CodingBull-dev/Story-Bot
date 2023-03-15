@@ -1,6 +1,7 @@
 ---
 title: Create
 layout: "layouts/info.html"
+description: Find out how to create the next story
 ---
 Hey there! Are you ready to help our authors write the next set of amazing short stories? Do you want to be a part of inspiring the next generation of literary masterminds? Of course you do!
 
