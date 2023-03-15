@@ -9,7 +9,7 @@ We need prompt writers to populate our site, and it's a super easy gig. **All yo
 
 <div class="grid w-full justify-center">
     <div class="card w-full md:w-96  bg-base-100 shadow-xl image-full overflow-hidden">
-        <figure><img class="w-full" src="{{ '/img/cyber-background.png' | url }}" alt="Background" /></figure>
+        <figure><img class="w-full" src="{{ '/img/cyber-background.webp' | url }}" alt="Background" /></figure>
         <div class="card-body items-center text-center">
             <div class="card-actions justify-center">
                 <a href="{{ site.create }}" target="_blank">
