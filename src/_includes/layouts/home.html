@@ -9,7 +9,8 @@
             {% include "partials/bot-photo.html" %}
         </div>
         <div id="site-description">
-            <h1 class="text-8xl font-bold title" id="landing-title" data-value="{{ title }}">{{ title }}</h1>
+            <h1 class="md:text-8xl text-6xl font-bold title" id="landing-title" data-value="{{ title }}">{{ title }}
+            </h1>
             <p class="py-6 source-sans">{{ description }}</p>
             <a href="{{ '/blog' | url }}"><button class="btn btn-primary">Start Reading</button></a>
         </div>
@@ -18,9 +19,7 @@
 
 
 <section id="content" class="pt-16">
-    <div class="separator w-0 h-0">
-
-    </div>
+    <div class="separator w-0 h-0"> </div>
     <div class="bg-primary max-h-min text-primary-content pt-16 pb-16">
         <div class="container mx-auto px-4">
             <div class="[&>*]:p-4 [&>*]:text-2xl mulish">
@@ -29,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class="separator-bottom w-0 h-0 pb-16" />
+    <div class="separator-bottom w-0 h-0 pb-16" ></div>
 </section>
 
 <section id="latest" class="pb-32">
@@ -38,12 +37,13 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pb-6 place-items-center md:place-items-stretch">
             {% set postslist = collections.blog | limit(3) %}
             {% for post in postslist %}
-            <a href="{{ post.url}}" class="indicator">
+            <a href="{{ post.url}}" class="indicator w-full">
                 {% if isOneDayOld(post.date) %}
-                <span class="indicator-item indicator-center md:indicator-top md:indicator-end badge badge-primary">new</span>
+                <span
+                    class="indicator-item indicator-center md:indicator-top md:indicator-end badge badge-primary">new</span>
                 {% endif %}
                 <div
-                    class="card card-compact w-96 bg-base-200 shadow-xl transition ease-in-out delay-150 hover:shadow-lg hover:scale-110 duration-200">
+                    class="card card-compact w-96 bg-base-200 shadow-xl transition ease-in-out delay-150 hover:shadow-2xl md:hover:scale-110 duration-200">
                     <figure class="h-36">
                         <img src="{{ '/img/blog/' | url }}{{ post.data.image }}" alt="{{ post.data.title }}" />
                     </figure>
