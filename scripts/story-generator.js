@@ -44,13 +44,6 @@ class StoryGenerator {
     }
 
     async generateStory(prompt) {
-        // add the instruction for the prompt
-        const fullPrompt = `
-Write a post for a blog. It must be at least 5 paragrahs long.
-Don't write the title of the story. I'll ask you about it in a follow up question.
-Only write the post. You do not need to start the post by saying anything like "Welcome to our blog".
-Your prompt is the following:
-${prompt}`;
 
         const story = {};
 
@@ -58,9 +51,13 @@ ${prompt}`;
 
         console.log("Requesting story.", "Temperature for the story is:", temperature);
 
+        const systemInfo = `You are Story Bot. A language model that helps users create stories, scripts and more. 
+        Follow the user's instructions carefully and generate the content they requested.
+        When writing a post, story or script, try to extend the text as much as possible without making it boring.`
+
         const storyMessages = [
-            { "role": "system", "content": "You are an author for a blog. The blog is about short stories." },
-            { "role": "user", "content": fullPrompt }
+            { "role": "system", "content": systemInfo },
+            { "role": "user", "content": prompt }
         ];
         const response = await this.openai.createChatCompletion({
             model: "gpt-3.5-turbo",
