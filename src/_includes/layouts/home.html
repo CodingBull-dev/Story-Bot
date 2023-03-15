@@ -79,13 +79,14 @@
             name.innerText = name.innerText
                 .split("")
                 .map((letter, index) => {
-                    if (index < iteration) {
+                    if (letter === " ") {
+                        return " ";
+                    } else if (index < iteration) {
                         return name.dataset.value[index];
                     }
 
                     return letters[Math.floor(Math.random() * lLength)]
-                })
-                .join("");
+                }).join("");
 
             if (iteration >= name.dataset.value.length) {
                 clearInterval(interval);
