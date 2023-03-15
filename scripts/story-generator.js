@@ -1,29 +1,12 @@
 const { Configuration, OpenAIApi } = require("openai");
 const fs = require('fs');
 var string = require("string-sanitizer");
-const client = require('https');
 const yaml = require("json2yaml");
+const Image = require("@11ty/eleventy-img");
 
 const key = process.env.OPEN_AI_KEY;
 if (!key) {
     throw new Error("Missing key OPEN_AI_KEY");
-}
-
-function downloadImage(url, filepath) {
-    return new Promise((resolve, reject) => {
-        client.get(url, (res) => {
-            if (res.statusCode === 200) {
-                res.pipe(fs.createWriteStream(filepath))
-                    .on('error', reject)
-                    .once('close', () => resolve(filepath));
-            } else {
-                // Consume response data to free up memory
-                res.resume();
-                reject(new Error(`Request Failed With a Status Code: ${res.statusCode}`));
-
-            }
-        });
-    });
 }
 
 class StoryGenerator {
@@ -51,7 +34,7 @@ class StoryGenerator {
 
         console.log("Requesting story.", "Temperature for the story is:", temperature);
 
-        const systemInfo = `You are Story Bot. A language model that helps users create stories, scripts and more. 
+        const systemInfo = `You are Story Bot, a language model that helps users create stories, scripts and more. 
         Follow the user's instructions carefully and generate the content they requested.
         When writing a post, story or script, try to extend the text as much as possible without making it boring.`
 
@@ -164,7 +147,7 @@ ${promptData}
     }
 
     async generateStoryPhoto(story) {
-        const imageName = `${this.today}-${string.sanitize.addDash(story.title)}.png`.toLowerCase();
+        const imageName = `${this.today}-${string.sanitize.addDash(story.title)}`.toLowerCase();
 
         console.log('Generating image for the story with the following prompt:', story.imagePrompt);
 
@@ -176,17 +159,22 @@ ${promptData}
 
             console.log('Got the image.', 'Downloading file now!');
 
-            const fileName = `./src/img/blog/${imageName}`;
-
             for (let i = 0; i < response.data.data.length; i++) {
-                const data = response.data.data[i];
-                await downloadImage(data.url, fileName);
-                console.log("Finished saving file", fileName);
-                return imageName;
+                const { url } = response.data.data[i];
+                // this lib downloads the image and compress it as a webp
+                const stats = await Image(url, {
+                    formats: ["webp"],
+                    outputDir: "./src/img/blog/",
+                    filenameFormat: (id, src, width, format, options) => {
+                        return `${imageName}.${format}`;
+                    }
+                });
+                console.log("Finished saving file", stats);
+                return stats.webp[0].filename;
             }
         } catch (e) {
             console.error(e.message);
-            throw new Error(`Failed while fetching the image for ${prompt.title}`);
+            throw new Error(`Failed while fetching the image for ${story.imagePrompt}`);
         }
     }
 
