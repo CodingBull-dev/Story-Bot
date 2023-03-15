@@ -12,7 +12,7 @@ We need prompt writers to populate our site, and it's a super easy gig. **All yo
         <div class="card-body items-center text-center">
             <div class="card-actions justify-center">
                 <a href="{{ site.create }}" target="_blank">
-                    <button class="btn btn-wide btn-secondary">Submit a prompt</button>
+                    <button id="submit-prompt" class="btn btn-wide btn-secondary umami--click--submit-prompt">Submit a prompt</button>
                 </a>
             </div>
         </div>

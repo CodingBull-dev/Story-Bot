@@ -12,7 +12,9 @@
             <h1 class="md:text-8xl text-6xl font-bold title" id="landing-title" data-value="{{ title }}">{{ title }}
             </h1>
             <p class="py-6 source-sans">{{ description }}</p>
-            <a href="{{ '/blog' | url }}"><button class="btn btn-primary">Start Reading</button></a>
+            <a href="{{ '/blog' | url }}">
+                <button class="btn btn-primary umami--click--start-reading">Start Reading</button>
+            </a>
         </div>
     </div>
 </div>
@@ -24,7 +26,9 @@
         <div class="container mx-auto px-4">
             <div class="[&>*]:p-4 [&>*]:text-2xl mulish">
                 {{ content | safe }}
-                <a href="{{ '/about' | url }}"><button class="btn btn-secondary mt-16">Learn more</button></a>
+                <a href="{{ '/about' | url }}">
+                    <button class="btn btn-secondary mt-16 umami--click--learn-more">Learn more</button>
+                </a>
             </div>
         </div>
     </div>
