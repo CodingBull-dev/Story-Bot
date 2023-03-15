@@ -12,9 +12,14 @@
             <h1 class="md:text-8xl text-6xl font-bold title" id="landing-title" data-value="{{ title }}">{{ title }}
             </h1>
             <p class="py-6 source-sans">{{ description }}</p>
-            <a href="{{ '/blog' | url }}">
-                <button class="btn btn-primary umami--click--start-reading">Start Reading</button>
-            </a>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-start">
+                <a href="{{ '/blog' | url }}">
+                    <button class="btn btn-primary umami--click--start-reading">Start Reading</button>
+                </a>
+                <a href="{{ '/create' | url }}">
+                    <button class="btn btn-secondary umami--click--create-main-page">Create a prompt</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
