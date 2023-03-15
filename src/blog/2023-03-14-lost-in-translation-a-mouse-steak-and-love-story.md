@@ -6,9 +6,6 @@
   tags: "gpt"
   generation: 
     temperature: 0.42
-    helper: 
-      name: "Bullrich"
-      avatar: "https://avatars.githubusercontent.com/u/8524599?v=4"
   image: "2023-03-14-lost-in-translation-a-mouse-steak-and-love-story.png"
 ---
 In a small flat in the heart of the city, there lived five housemates from different parts of the world. They all had one thing in common, they couldn't speak the same language. It was a sight to see them trying to communicate with each other using hand gestures and facial expressions. But despite the language barrier, they all managed to get along just fine.

@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 
+.center-div {
+    @apply grid place-items-center
+}
+
 .title {
     font-family: 'Arvo', serif;
 }

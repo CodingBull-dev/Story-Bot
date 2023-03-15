@@ -31,12 +31,12 @@ So what are you waiting for? Let's get started!
 
 ### Current posts in the system
 
-<div class="grid w-full justify-center">
+<div class="center-div w-full">
     <div class="stats shadow">
-    <div class="stat">
-        <div class="stat-title">Total Posts</div>
-        <div class="stat-value">{{ collections.blog | length }}</div>
-        <div class="stat-desc">Help us make this number grow</div>
-    </div>
+        <div class="stat place-items-center">
+            <div class="stat-title">Total Posts</div>
+            <div class="stat-value">{{ collections.blog | length }}</div>
+            <div class="stat-desc">Help us make this number grow</div>
+        </div>
     </div>
 </div>

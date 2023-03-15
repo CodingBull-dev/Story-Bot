@@ -15,7 +15,49 @@
         </div>
         {% endif %}
         <div>
-            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold title">{{ title }}</h1>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold title text-center">{{ title }}</h1>
+            {% if generation %}
+            <div class="center-div pt-8">
+                <div class="stats stats-vertical lg:stats-horizontal shadow">
+                    <div class="stat">
+                        <div class="stat-title">
+                            <a href="https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperature"
+                                target="_blank">
+                                Temperature
+                            </a>
+                        </div>
+                        <div class="stat-value">
+                            {{ generation.temperature }}
+                        </div>
+                        <div class="stat-desc">
+                            <progress class="progress progress-primary w-56" value="{{ generation.temperature }}"
+                                max="1"> </progress>
+                        </div>
+                        <div class="stat-desc">↗ More random</div>
+                    </div>
+
+                    {% if generation.helper %}
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <div class="avatar">
+                                <div class="w-16 rounded-full">
+                                    <img src="{{ generation.helper.avatar }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-title">Helper</div>
+                        <div class="stat-value">
+                            <a class="link" href="https://github.com/{{ generation.helper.name }}" target="_blank">
+                                {{ generation.helper.name }}
+                            </a>
+                        </div>
+                        <div class="stat-desc">Human who wrote the prompt</div>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endif %}
         </div>
     </div>
     {% if human %}

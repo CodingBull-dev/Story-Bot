@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="separator-bottom w-0 h-0 pb-16" ></div>
+    <div class="separator-bottom w-0 h-0 pb-16"></div>
 </section>
 
 <section id="latest" class="pb-32">
@@ -42,16 +42,16 @@
             {% set postslist = collections.blog | limit(3) %}
             {% for post in postslist %}
             <a href="{{ post.url}}" class="indicator w-full">
-                {% if isOneDayOld(post.date) %}
-                <span
-                    class="indicator-item indicator-center md:indicator-top md:indicator-end badge badge-primary">new</span>
-                {% endif %}
                 <div
-                    class="card card-compact w-96 bg-base-200 shadow-xl transition ease-in-out delay-150 hover:shadow-2xl md:hover:scale-110 duration-200">
+                    class="card card-compact w-96 bg-base-200 shadow-xl transition ease-in-out delay-150 hover:shadow-2xl md:hover:scale-110 hover:bg-base-300 duration-200">
                     <figure class="h-36">
                         <img src="{{ '/img/blog/' | url }}{{ post.data.image }}" alt="{{ post.data.title }}" />
                     </figure>
                     <div class="card-body">
+                        {% if isOneDayOld(post.date) %}
+                        <span
+                            class="indicator-item indicator-center md:indicator-top md:indicator-end badge badge-primary">new</span>
+                        {% endif %}
                         <h2 class="card-title link link-primary">{{ post.data.title }}</h2>
                         <h6 class="text-lg text-base-content">{{ post.date | w3DateFilter }}</h6>
                         <p class="text-slate-600">{{ post.templateContent | excerpt }}</p>
