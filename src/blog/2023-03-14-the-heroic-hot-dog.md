@@ -9,7 +9,7 @@
     helper: 
       name: "lhbelfanti"
       avatar: "https://avatars.githubusercontent.com/u/8301048?v=4"
-  image: "2023-03-14-the-heroic-hot-dog.png"
+  image: "2023-03-14-the-heroic-hot-dog.webp"
 ---
 I never thought my life would be changed by a hot dog, but that's exactly what happened. It all started when I was driving my bus full of passengers across a bridge. Suddenly, the bridge began to collapse! I slammed on the brakes and the bus screeched to a halt, but the front half of the bus was dangling off the edge of the bridge.
 

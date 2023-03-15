@@ -3,7 +3,7 @@ layout: "layouts/blog.html"
 title: "Obsolete Journalism"
 date: 2023-03-13
 categories: blog
-image: 2023-03-13-obsolete-journalism.png
+image: 2023-03-13-obsolete-journalism.webp
 tags: 'gpt'
 generation:
   temperature: 0.12

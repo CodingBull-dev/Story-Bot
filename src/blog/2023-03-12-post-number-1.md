@@ -4,7 +4,7 @@ title: Post Number 1
 date: 2023-03-12
 categories: blog
 human: This post was written by a human
-image: 2023-03-12-post-number-1.png
+image: 2023-03-12-post-number-1.webp
 ---
 I have been fascinated with artificial intelligence since I saw Jarvis, the AI assistant in Iron Man. I have always dreamed of seeing something as powerful as that.
 

@@ -3,7 +3,7 @@ layout: "layouts/blog.html"
 title: Train Through Time
 date: 2023-03-14
 categories: blog
-image: 2023-03-14-train-through-time.png
+image: 2023-03-14-train-through-time.webp
 tags: 'gpt'
 generation:
   temperature: 0.04
