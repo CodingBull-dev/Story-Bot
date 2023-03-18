@@ -1,0 +1,64 @@
+name: "Prompt Generator"
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  generate-story:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'automate'
+    permissions:
+      contents: write
+    steps:
+      - name: Parse Issue Body
+        id: parse_prompt
+        uses: peter-murray/issue-forms-body-parser@v3.0.0
+        with:
+          issue_id: ${{ github.event.issue.number }}
+          separator: '###'
+          label_marker_start: '_'
+          label_marker_end: '_'
+      - uses: actions/checkout@v3
+      - name: Dump Prompt Data
+        run: echo ${{ toJson(steps.parse_prompt.outputs.payload) }} > story.json
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - name: Build file
+        id: build
+        run: npm start
+      - run: echo "The data was ${{ steps.build.outputs.data }}"
+      - name: Commit data
+        run: |
+          git config --global user.name 'Story Bot'
+          git config --global user.email 'info@storybot.dev'
+          TITLE=$(jq -r .Title story.json)
+          git add ./src/blog
+          git add ./src/img/blog
+          git commit -m "✍️ $TITLE
+
+          Closes #${{ github.event.issue.number }}"
+
+          git pull --rebase
+          git push --set-upstream origin main
+          
+  deploy-site:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'automate'
+    needs: [generate-story]
+    permissions:
+      actions: write
+      issues: write
+    steps:
+      - name: Deploy workflow
+        run: gh workflow run deploy-site.yml
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Close Issue
+        run: gh issue close ${{ github.event.issue.number }} -r completed -c "Post released! Check it out in the [blog](https://storybot.dev/blog)!"
+        env:
+          GH_TOKEN: ${{ github.token }}
+      
+
