@@ -5,7 +5,7 @@ description: Find out how to create the next story
 ---
 Hey there! Are you ready to help our authors write the next set of amazing short stories? Do you want to be a part of inspiring the next generation of literary masterminds? Of course you do!
 
-We need prompt writers to populate our site, and it's a super easy gig. **All you need is a <u>GitHub account</u> and a sense of adventure**. Ready to take the plunge? Click on the link below to get started.
+We need prompt writers to populate our site, and it's a super easy gig. Ready to take the plunge? Click on the link below to get started.
 
 <div class="grid w-full justify-center">
     <div class="card w-full md:w-96 bg-base-100 shadow-xl image-full overflow-hidden">
@@ -13,7 +13,7 @@ We need prompt writers to populate our site, and it's a super easy gig. **All yo
         <div class="card-body items-center text-center">
             <div class="card-actions justify-center">
                 <a href="{{ site.create }}" target="_blank">
-                    <button id="submit-prompt" class="btn btn-wide btn-secondary umami--click--submit-prompt">Submit a prompt</button>
+                    <button id="submit-prompt" class="btn btn-wide btn-secondary umami--click--submit-prompt">To the prompt editor</button>
                 </a>
             </div>
         </div>
@@ -24,9 +24,7 @@ Now, let's get creative! Let your imagination run wild and come up with a prompt
 
 Once you've submitted your prompt, our system will analyze it and turn it into a story complete with a catchy title and some awesome cover art. Pretty cool, right?
 
-But wait, there's more! Before we can share your amazing story with the world, one of our human helpers will review it to make sure it's all above board. We wouldn't want any shenanigans now, would we?
-
-Once your story has been approved, we'll take care of the rest. We'll create a brand-new post, upload it to the site, and voila! You'll be a published writer in no time. How awesome is that?!
+There, you can see your prompt, and if you don't like it, you can always re-roll it for a new one!
 
 So what are you waiting for? Let's get started!
 
