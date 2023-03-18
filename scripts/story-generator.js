@@ -27,7 +27,6 @@ class StoryGenerator {
     }
 
     async generateStory(prompt) {
-
         const story = {};
 
         const temperature = Number(Math.random().toFixed(2));
@@ -77,7 +76,7 @@ class StoryGenerator {
         console.log("Got the story title:", story.title);
 
         const imgPrompt = `Based on the previous story, write a prompt for an image generation service. It is intended to be the cover of the blog post.
-Respond only with the prompt. No other text is needed`
+Respond only with the prompt. No other text is needed. Keep the prompt short`
 
         const promptQuestion = await this.openai.createChatCompletion({
             model: "gpt-3.5-turbo",
@@ -97,7 +96,32 @@ Respond only with the prompt. No other text is needed`
         return story;
     }
 
-    async generateMarkdownFile(story, img, helper) {
+    async generateStoryPhoto(story) {
+        console.log('Generating image for the story with the following prompt:', story.imagePrompt);
+
+        const response = await this.openai.createImage({
+            prompt: story.imagePrompt,
+            n: 1,
+            size: "512x512",
+        });
+
+        console.log('Got the image.', 'Downloading file now!');
+
+        return response.data.data[0].url;
+    }
+
+    async writeFiles(story, imgUrl, helper){
+        const imageName = `${this.today}-${string.sanitize.addDash(story.title)}`.toLowerCase();
+        const stats = await Image(imgUrl, {
+            formats: ["webp"],
+            outputDir: "./src/img/blog/",
+            filenameFormat: (id, src, width, format, options) => {
+                return `${imageName}.${format}`;
+            }
+        });
+        console.log("Finished saving image", stats);
+        const img = stats.webp[0].filename;
+
         console.log("Generating markdown file");
 
         const promptData = "```markdown\n" + story.prompt.trim() + "\n```";
@@ -146,43 +170,22 @@ ${promptData}
         });
     }
 
-    async generateStoryPhoto(story) {
-        const imageName = `${this.today}-${string.sanitize.addDash(story.title)}`.toLowerCase();
-
-        console.log('Generating image for the story with the following prompt:', story.imagePrompt);
-
-        try {
-            const response = await this.openai.createImage({
-                prompt: story.imagePrompt,
-                size: "512x512",
-            });
-
-            console.log('Got the image.', 'Downloading file now!');
-
-            for (let i = 0; i < response.data.data.length; i++) {
-                const { url } = response.data.data[i];
-                // this lib downloads the image and compress it as a webp
-                const stats = await Image(url, {
-                    formats: ["webp"],
-                    outputDir: "./src/img/blog/",
-                    filenameFormat: (id, src, width, format, options) => {
-                        return `${imageName}.${format}`;
-                    }
-                });
-                console.log("Finished saving file", stats);
-                return stats.webp[0].filename;
-            }
-        } catch (e) {
-            console.error(e.message);
-            throw new Error(`Failed while fetching the image for ${story.imagePrompt}`);
-        }
-    }
-
     async generateBlogPost(prompt, helper) {
-        const story = await this.generateStory(prompt);
-        const photo = await this.generateStoryPhoto(story);
-        const file = await this.generateMarkdownFile(story, photo, helper);
-        return story;
+        try {
+            const story = await this.generateStory(prompt);
+            const photo = await this.generateStoryPhoto(story);
+            const file = await this.writeFiles(story, photo, helper);
+            return story;
+        }
+        catch (error) {
+            if (error.response) {
+                console.error(error.response.status);
+                console.error(error.response.data);
+            } else {
+                console.error(error);
+            }
+            throw new Error("Failed during the operation");
+        }
     }
 }
 
