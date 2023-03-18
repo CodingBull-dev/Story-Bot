@@ -19,9 +19,9 @@ async function generateStoryFromIssue() {
 
         const story = JSON.parse(data);
 
-        generator.generateFiles(story, story.image, helper).then(file => {
+        generator.writeFiles(story, story.image, helper).then(file => {
             core.setOutput('file', file);
-            core.setOutput('title', title);
+            core.setOutput('title', story.title);
         });
     });
 }

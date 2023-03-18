@@ -7,7 +7,7 @@ on:
 jobs:
   parse-prompt:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'prompt'
+    if: github.event.label.name == 'prompt-1'
     permissions:
       issues: read
       contents: write

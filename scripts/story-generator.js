@@ -4,11 +4,6 @@ var string = require("string-sanitizer");
 const yaml = require("json2yaml");
 const Image = require("@11ty/eleventy-img");
 
-const key = process.env.OPEN_AI_KEY;
-if (!key) {
-    throw new Error("Missing key OPEN_AI_KEY");
-}
-
 class StoryGenerator {
     constructor(apiKey) {
         const configuration = new Configuration({

@@ -7,7 +7,7 @@ on:
 jobs:
   generate-story:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'automate'
+    if: github.event.label.name == 'story'
     permissions:
       contents: write
     steps:
@@ -20,7 +20,7 @@ jobs:
           label_marker_start: '_'
           label_marker_end: '_'
       - uses: actions/checkout@v3
-      - name: Dump Prompt Data
+      - name: Write story data
         run: echo ${{ toJson(steps.parse_prompt.outputs.payload) }} > story.json
       - uses: actions/setup-node@v3
         with:
@@ -28,13 +28,12 @@ jobs:
       - run: npm ci
       - name: Build file
         id: build
-        run: npm start
-      - run: echo "The data was ${{ steps.build.outputs.data }}"
+        run: npm run action
       - name: Commit data
         run: |
           git config --global user.name 'Story Bot'
           git config --global user.email 'info@storybot.dev'
-          TITLE=$(jq -r .Title story.json)
+          TITLE=$(jq -r .title story.json)
           git add ./src/blog
           git add ./src/img/blog
           git commit -m "✍️ $TITLE
@@ -46,12 +45,12 @@ jobs:
           
   deploy-site:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'automate'
     needs: [generate-story]
     permissions:
       actions: write
       issues: write
     steps:
+      - uses: actions/checkout@v3
       - name: Deploy workflow
         run: gh workflow run deploy-site.yml
         env:
