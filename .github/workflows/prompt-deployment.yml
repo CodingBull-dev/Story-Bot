@@ -8,6 +8,9 @@ jobs:
   generate-story:
     runs-on: ubuntu-latest
     if: github.event.label.name == 'story'
+    outputs:
+      url: ${{ steps.build.outputs.url }}
+      title: ${{ steps.build.outputs.title }}
     permissions:
       contents: write
     steps:
@@ -52,9 +55,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy workflow
-        run: gh workflow run deploy-site.yml
+        run: gh workflow run deploy-site.yml --field post="$URL" --field title="$TITLE"
         env:
           GH_TOKEN: ${{ github.token }}
+          URL: ${{ needs.generate-story.outputs.url }}
+          TITLE: ${{ needs.generate-story.outputs.title }}
       - name: Close Issue
         run: gh issue close ${{ github.event.issue.number }} -r completed -c "Post released! Check it out in the [blog](https://storybot.dev/blog)!"
         env:

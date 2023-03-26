@@ -5,6 +5,12 @@ const core = require('@actions/core');
 const USER_NAME = process.env.USER_NAME;
 const AVATAR = process.env.USER_AVATAR;
 
+function setOutputs(fileName, story) {
+    core.setOutput('file', fileName);
+    core.setOutput('url', fileName.replace(/^.*[\\\/]/, '').replace(".md", ""));
+    core.setOutput('title', story.title);
+}
+
 async function generateStoryFromIssue() {
     const generator = new StoryGenerator(null);
     let helper;
@@ -20,8 +26,7 @@ async function generateStoryFromIssue() {
         const story = JSON.parse(data);
 
         generator.writeFiles(story, story.image, helper).then(file => {
-            core.setOutput('file', file);
-            core.setOutput('title', story.title);
+            setOutputs(file.replace(`${generator.today}-`, ""), story);
         });
     });
 }

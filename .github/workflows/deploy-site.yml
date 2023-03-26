@@ -4,6 +4,15 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      post:
+        description: 'File name of the post to generate a share url'
+        required: false
+        type: string
+      title:
+        description: 'The title of the new story'
+        required: false
+        type: string
 
 permissions:
   pages: write
@@ -30,3 +39,19 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+  publish:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: inputs.post != ''
+    steps:
+      - name: Publish on Reddit
+        uses: bluwy/release-for-reddit-action@v1
+        with:
+          username: ${{ secrets.REDDIT_USERNAME }}
+          password: ${{ secrets.REDDIT_PASSWORD }}
+          app-id: ${{ secrets.REDDIT_APP_ID }}
+          app-secret: ${{ secrets.REDDIT_APP_SECRET }}
+          subreddit: StoryBotDev
+          title: ${{ inputs.title }}
+          url: "https://storybot.dev/blog/${{ inputs.post }}.html"
+          flair-id: ff8e376e-c33c-11ed-9958-c667e8d429b9
