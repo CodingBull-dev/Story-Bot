@@ -3,6 +3,7 @@ const fs = require('fs');
 var string = require("string-sanitizer");
 const yaml = require("json2yaml");
 const Image = require("@11ty/eleventy-img");
+const moment = require("moment");
 
 class StoryGenerator {
     constructor(apiKey) {
@@ -12,13 +13,8 @@ class StoryGenerator {
 
         this.openai = new OpenAIApi(configuration);
 
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        const yyyy = today.getFullYear();
-
         // generate today's date to order files
-        this.today = `${yyyy}-${mm}-${dd}`;
+        this.today = moment().format("YYYY-MM-DD");
     }
 
     async generateStory(prompt) {
@@ -124,7 +120,7 @@ Respond only with the prompt. No other text is needed. Keep the prompt short`
         const data = {
             layout: "layouts/blog.html",
             title: story.title,
-            date: this.today,
+            date: moment().toISOString(),
             categories: "blog",
             tags: 'gpt',
             generation: {
