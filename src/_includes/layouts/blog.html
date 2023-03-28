@@ -82,13 +82,13 @@
     <div class="btn-group grid grid-cols-2 mt-8">
         {% if previousPost %}
         <a class="btn btn-outline" href="{{ previousPost.url }}" data-direction="backwards" class="link">
-            Previous Blog Post: <span class="link"> {{ previousPost.data.title | shorten(25) }}</span>
+            Previous:&nbsp;<span class="link"> {{ previousPost.data.title | shorten(35) }}</span>
         </a>
         {% endif %}
         {% if nextPost %}
 
         <a class="btn btn-outline" href="{{ nextPost.url }}" data-direction="forwards" class="link">
-            Next Blog Post: <span class="link"> {{ nextPost.data.title | shorten(25) }}</span>
+            Next:&nbsp;<span class="link"> {{ nextPost.data.title | shorten(39) }}</span>
         </a>
         {% endif %}
     </div>
