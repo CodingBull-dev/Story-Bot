@@ -7,11 +7,10 @@ jobs:
   tweet:
     runs-on: ubuntu-latest
     steps:
-      - uses: snow-actions/tweet@v1.4.0
+      - uses: dart-actions/tweet@v1.0.0
         with:
-          status: "Hello, World! This is my first automated tweet!"
-        env:
-          CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-          CONSUMER_API_SECRET_KEY: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-          ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          text: "Hello, World! This is my first automated tweet!"
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
