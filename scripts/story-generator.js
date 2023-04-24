@@ -115,14 +115,13 @@ Respond only with the prompt. No other text is needed. Keep the prompt short`
 
         console.log("Generating markdown file");
 
-        const promptData = "```markdown\n" + story.prompt.trim() + "\n```";
-
         const data = {
             layout: "layouts/blog.html",
             title: story.title,
             date: moment().toISOString(),
             categories: "blog",
             tags: 'gpt',
+            prompt: story.prompt,
             generation: {
                 temperature: story.temperature
             }
@@ -142,9 +141,6 @@ Respond only with the prompt. No other text is needed. Keep the prompt short`
         const markdown = `${ymlData}
 ---
 ${story.content}
-\n
-## Prompt
-${promptData}
 `;
 
         const fileName = `./src/blog/${this.today}-${string.sanitize.addDash(story.title)}.md`.toLowerCase();

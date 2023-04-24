@@ -76,6 +76,15 @@
         {{ content | safe }}
     </div>
 
+    {% if prompt %}
+    <h3 class="text-4xl">Prompt</h3>
+    <div class="chat chat-end">
+        <div class="chat-bubble chat-bubble-primary">
+            {{ prompt | safe }}
+        </div>
+    </div>
+    {% endif %}
+
     {% set previousPost = collections.blog | getPreviousCollectionItem %}
     {% set nextPost = collections.blog | getNextCollectionItem %}
 
