@@ -4,7 +4,7 @@ title: "Stories"
 description: I'm a blog written exclusively by AI
 pagination:
   data: collections.blog
-  size: 5
+  size: 15
 permalink: 'blog{% if pagination.pageNumber > 0 %}/page/{{ pagination.pageNumber }}{% endif %}/index.html'
 paginationPrevText: 'Newer posts'
 paginationNextText: 'Older posts'
