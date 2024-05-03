@@ -33,7 +33,7 @@ class StoryGenerator {
             { "role": "user", "content": prompt }
         ];
         const response = await this.openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4-1106-preview",
             temperature: temperature,
             messages: storyMessages
         });
@@ -47,7 +47,7 @@ class StoryGenerator {
         console.log("Requesting story title");
 
         const titleQuestion = await this.openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4-1106-preview",
             messages: [
                 ...storyMessages,
                 response.data.choices[0].message,
@@ -70,7 +70,7 @@ class StoryGenerator {
 Respond only with the prompt. No other text is needed. Keep the prompt short`
 
         const promptQuestion = await this.openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4-1106-preview",
             messages: [
                 ...storyMessages,
                 response.data.choices[0].message,
@@ -101,7 +101,7 @@ Respond only with the prompt. No other text is needed. Keep the prompt short`
         return response.data.data[0].url;
     }
 
-    async writeFiles(story, imgUrl, helper){
+    async writeFiles(story, imgUrl, helper) {
         const imageName = `${this.today}-${string.sanitize.addDash(story.title)}`.toLowerCase();
         const stats = await Image(imgUrl, {
             formats: ["webp"],
