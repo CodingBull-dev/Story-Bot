@@ -23,9 +23,9 @@ jobs:
           label_marker_end: "🖊️"
       - uses: actions/checkout@v4
       - name: Write Prompt to file
-        run: echo '$PROMPT' > prompt.txt
+        run: echo "$PROMPT" > prompt.txt
         env:
-          PROMPT: fromJson(steps.parse_prompt.outputs.payload).Prompt
+          PROMPT: ${{ fromJson(steps.parse_prompt.outputs.payload).Prompt }}
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -38,8 +38,6 @@ jobs:
           USER_AVATAR: ${{ github.event.issue.user.avatar_url }}
           OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}
       - name: Commit the story
-        env:
-          USERNAME: ${{ github.event.issue.user.login }}
         run: |
           git config --global user.name 'Story Bot'
           git config --global user.email 'info@storybot.dev'
@@ -50,6 +48,8 @@ jobs:
 
           Co-authored-by: $USERNAME <$USERNAME@users.noreply.github.com>"
           git push --set-upstream origin prompt/issue-${{ github.event.issue.number }}
+        env:
+          USERNAME: ${{ github.event.issue.user.login }}
       - name: Create Body file
         run: |
           echo "This PR closes #${{ github.event.issue.number }}" >> body.txt
