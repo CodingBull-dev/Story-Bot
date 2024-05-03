@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       post:
-        description: 'File name of the post to generate a share url'
+        description: "File name of the post to generate a share url"
         required: false
         type: string
       title:
-        description: 'The title of the new story'
+        description: "The title of the new story"
         required: false
         type: string
 
@@ -23,22 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - run: npm ci
       - run: npm run build
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
   publish:
     needs: [deploy]
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
         with:
           rss: "https://storybot.dev/feed.xml"
       - name: Publish on Reddit
-        uses: bluwy/release-for-reddit-action@v1
+        uses: bluwy/release-for-reddit-action@v2
         with:
           username: ${{ secrets.REDDIT_USERNAME }}
           password: ${{ secrets.REDDIT_PASSWORD }}
@@ -62,15 +62,14 @@ jobs:
           flair-id: ff8e376e-c33c-11ed-9958-c667e8d429b9
       - name: Send toot to Mastodon
         id: mastodon
-        uses: cbrgm/mastodon-github-action@v1
+        uses: cbrgm/mastodon-github-action@v2.0.6
         with:
           message: "I wrote a new #AI post. Read it at ${{ steps.rss.outputs.url }}"
           visibility: "public"
-        env:
-          MASTODON_URL: ${{ secrets.MASTODON_URL }}
-          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          url: ${{ secrets.MASTODON_URL }}
       - name: Publish on Twitter
-        uses: dart-actions/tweet@v1.0.0
+        uses: dart-actions/tweet@v1.0.1
         with:
           text: "I wrote a new #AI post using #OpenAI. Read it at ${{ steps.rss.outputs.url }}"
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}

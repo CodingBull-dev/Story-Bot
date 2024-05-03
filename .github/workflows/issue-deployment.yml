@@ -1,13 +1,13 @@
-name: "Prompt Generator"
+name: "Issue Generator"
 
 on:
   issues:
     types: [labeled]
 
 jobs:
-  parse-prompt:
+  parse-issue:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'prompt-1'
+    if: github.event.label.name == 'generate-story'
     permissions:
       issues: read
       contents: write
@@ -15,22 +15,24 @@ jobs:
     steps:
       - name: Parse Issue Body
         id: parse_prompt
-        uses: peter-murray/issue-forms-body-parser@v3.0.0
+        uses: peter-murray/issue-forms-body-parser@v4.1.0
         with:
           issue_id: ${{ github.event.issue.number }}
-          separator: '###'
-          label_marker_start: '✒️'
-          label_marker_end: '🖊️'
-      - uses: actions/checkout@v3
+          separator: "###"
+          label_marker_start: "✒️"
+          label_marker_end: "🖊️"
+      - uses: actions/checkout@v4
       - name: Write Prompt to file
-        run: echo '${{ fromJson(steps.parse_prompt.outputs.payload).Prompt }}' > prompt.txt
-      - uses: actions/setup-node@v3
+        run: echo '$PROMPT' > prompt.txt
+        env:
+          PROMPT: fromJson(steps.parse_prompt.outputs.payload).Prompt
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - run: npm ci
       - name: Write story
         id: write
-        run: npm run action
+        run: npm run prompt
         env:
           USER_NAME: ${{ github.event.issue.user.login }}
           USER_AVATAR: ${{ github.event.issue.user.avatar_url }}
@@ -58,4 +60,3 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create --title "✍️ ${{ steps.write.outputs.title }}" --body-file body.txt
-
