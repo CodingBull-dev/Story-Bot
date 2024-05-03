@@ -10,11 +10,11 @@ if (!key) {
 const generator = new StoryGenerator(key);
 
 // We have the prompt to read available in a text file
-fs.readFile('./prompt.txt', 'utf8', function (err, data) {
+fs.readFile('./prompt.txt', 'utf8', async function (err, data) {
     if (err) {
         throw err;
     }
     // We create the blog post with the data of the prompt
-    const story = generator.generateBlogPost(data);
-    core.setOutput('title', story.title);
+    const story = await generator.generateBlogPost(data);
+    core.setOutput('title', story.title.replace(/\"/g, ""));
 });
