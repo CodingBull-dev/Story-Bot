@@ -1,16 +1,15 @@
 name: "✍️ Propose a prompt"
 description: Write your prompt and let our team of writers create a story.
 title: "✍️ [PROMPT] - <title>"
-labels: [
-  "prompt"
-]
+labels: ["prompt"]
+assignees: [Bullrich]
 body:
   - type: textarea
     id: prompt
     attributes:
       label: "✒️Prompt🖊️"
       description: Write your proposed prompt. Be as goofy or original as you want!
-      placeholder: > 
+      placeholder: >
         Example:
         Write a story where the main character find true happiness. 
         The story must be one of the following genres (or a combination of them): Fantasy, Fiction, Horror, or Humor.
