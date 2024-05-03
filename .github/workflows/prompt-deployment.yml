@@ -16,18 +16,18 @@ jobs:
     steps:
       - name: Parse Issue Body
         id: parse_prompt
-        uses: peter-murray/issue-forms-body-parser@v3.0.0
+        uses: peter-murray/issue-forms-body-parser@v4.1.0
         with:
           issue_id: ${{ github.event.issue.number }}
-          separator: '###'
-          label_marker_start: '_'
-          label_marker_end: '_'
-      - uses: actions/checkout@v3
+          separator: "###"
+          label_marker_start: "_"
+          label_marker_end: "_"
+      - uses: actions/checkout@v4
       - name: Write story data
         run: echo ${{ toJson(steps.parse_prompt.outputs.payload) }} > story.json
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - run: npm ci
       - name: Build file
         id: build
@@ -45,7 +45,7 @@ jobs:
 
           git pull --rebase
           git push --set-upstream origin main
-          
+
   deploy-site:
     runs-on: ubuntu-latest
     needs: [generate-story]
@@ -53,7 +53,7 @@ jobs:
       actions: write
       issues: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Deploy workflow
         run: gh workflow run deploy-site.yml --field post="$URL" --field title="$TITLE"
         env:
@@ -64,5 +64,3 @@ jobs:
         run: gh issue close ${{ github.event.issue.number }} -r completed -c "Post released! Check it out in the [blog](https://storybot.dev/blog)!"
         env:
           GH_TOKEN: ${{ github.token }}
-      
-
