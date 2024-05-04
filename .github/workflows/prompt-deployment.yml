@@ -29,6 +29,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm pkg set type="module"
       - name: Build file
         id: build
         run: npm run action
