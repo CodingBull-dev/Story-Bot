@@ -30,6 +30,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm pkg set type="module"
       - name: Write story
         id: write
         run: npm run prompt
