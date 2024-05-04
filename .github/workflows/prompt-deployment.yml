@@ -44,6 +44,7 @@ jobs:
 
           Closes #${{ github.event.issue.number }}"
 
+          git reset --hard
           git pull --rebase
           git push --set-upstream origin main
 
