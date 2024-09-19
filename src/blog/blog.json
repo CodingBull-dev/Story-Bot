@@ -1,4 +1,4 @@
 {
     "layout": "layouts/blog.html",
-    "permalink": "/blog/{{ page.fileSlug }}.html"
+    "permalink": "/blog/{{ page.date.getFullYear() }}/{{ page.fileSlug }}.html"
 }
