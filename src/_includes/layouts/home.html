@@ -14,10 +14,10 @@
             <p class="py-6 source-sans">{{ description }}</p>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-start">
                 <a href="{{ '/blog' | url }}">
-                    <button class="btn btn-primary umami--click--start-reading">Start Reading</button>
+                    <button class="btn btn-primary" data-umami-event="start-reading">Start Reading</button>
                 </a>
                 <a href="{{ '/create' | url }}">
-                    <button class="btn btn-secondary umami--click--create-main-page">Create a prompt</button>
+                    <button class="btn btn-secondary" data-umami-event="create-main-page">Create a prompt</button>
                 </a>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="[&>*]:p-4 [&>*]:text-2xl mulish">
                 {{ content | safe }}
                 <a href="{{ '/about' | url }}">
-                    <button class="btn btn-secondary mt-16 umami--click--learn-more">Learn more</button>
+                    <button class="btn btn-secondary mt-16" data-umami-event="learn-mode">Learn more</button>
                 </a>
             </div>
         </div>

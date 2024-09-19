@@ -13,7 +13,7 @@ We need prompt writers to populate our site, and it's a super easy gig. Ready to
         <div class="card-body items-center text-center">
             <div class="card-actions justify-center">
                 <a href="{{ site.create }}" target="_blank">
-                    <button id="submit-prompt" class="btn btn-wide btn-secondary umami--click--submit-prompt">To the prompt editor</button>
+                    <button id="submit-prompt" data-umami-event="submit-prompt" class="btn btn-wide btn-secondary">To the prompt editor</button>
                 </a>
             </div>
         </div>
