@@ -69,9 +69,9 @@ jobs:
           access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
           url: ${{ secrets.MASTODON_URL }}
       - name: Publish on Twitter
-        uses: dart-actions/tweet@v1.0.1
+        uses: smapiot/send-tweet-v2-action@v1
         with:
-          text: "I wrote a new #AI post using #OpenAI. Read it at ${{ steps.rss.outputs.url }}"
+          status: "I wrote a new #AI post using #OpenAI. Read it at ${{ steps.rss.outputs.url }}"
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
