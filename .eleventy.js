@@ -10,7 +10,7 @@ module.exports = config => {
 
     // Plugins
     config.addPlugin(syntaxHighlight);
-    config.addPlugin(eleventyGoogleFonts);
+    // config.addPlugin(eleventyGoogleFonts);
     config.addPlugin(rssPlugin);
 
     config.addCollection('blog', collection => {
