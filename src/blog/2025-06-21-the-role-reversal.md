@@ -1,6 +1,6 @@
 ---
   layout: "layouts/blog.html"
-  title: "Role Reversal"
+  title: "The Role Reversal"
   date: "2025-06-21T18:10:24.688Z"
   categories: "blog"
   tags: "gpt"
